@@ -19,7 +19,14 @@ original_title<-datos[,'originalTitle']
 voteCount<-datos[('voteCount')]
 
 
-q3<-data.frame(id,original_title,voteCount)
+q3<-data.frame(original_title,voteCount)
 ask3<-q3[order(-q3$voteCount),]
-head(ask3,n=5)
-View(ask3)
+ask3f<-head(ask3,n=5)
+View(ask3f)
+
+barplot(prop.table(table(ask3f$original_title)))
+
+barplot(height = ask3f$voteCount,names=ask3f$original_title,
+        col=c('red','green','purple','blue','yellow'))
+
+
