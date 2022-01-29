@@ -20,4 +20,6 @@ voteCount<-datos[('voteCount')]
 
 
 q3<-data.frame(id,original_title,voteCount)
-View(q3)
+ask3<-q3[order(-q3$voteCount),]
+head(ask3,n=5)
+View(ask3)
