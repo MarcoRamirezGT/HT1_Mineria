@@ -6,7 +6,7 @@ str(datos) #Estructura de los datos
 names(datos)
 
 
-#Vectores
+#Pregunta 3
 
 
 datos[,'id']
@@ -16,9 +16,8 @@ datos[,'originalTitle']
 
 id<-datos[,'id']
 original_title<-datos[,'originalTitle']
-voteCount<-datos[,'voteCount']
+voteCount<-datos[('voteCount')]
 
 
 q3<-data.frame(id,original_title,voteCount)
 View(q3)
-
