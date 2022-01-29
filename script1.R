@@ -24,9 +24,10 @@ ask3<-q3[order(-q3$voteCount),]
 ask3f<-head(ask3,n=5)
 View(ask3f)
 
-barplot(prop.table(table(ask3f$original_title)))
+
 
 barplot(height = ask3f$voteCount,names=ask3f$original_title,
-        col=c('red','green','purple','blue','yellow'))
+        col=c('red','green','purple','blue','yellow'),
+        main = 'Top 5 peliculas con mas votos en IMDB')
 
 
