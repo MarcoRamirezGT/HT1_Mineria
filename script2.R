@@ -28,6 +28,6 @@ View(ask3f)
 
 
 
-barplot(height = ask3f$voteCount,names=ask3f$original_title,
+barplot(height = ask3f$presu,names=ask3f$original_title,
         col=c('red','green','purple','blue','yellow'),
         main = 'Top 10 peliculas con mayor presupuesto')
