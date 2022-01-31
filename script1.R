@@ -31,3 +31,10 @@ barplot(height = ask3f$voteCount,names=ask3f$original_title,
         main = 'Top 5 peliculas con mas votos en IMDB')
 
 
+#Pregunta 6
+
+id<-datos[,'id']
+original_title<-datos[,'originalTitle']
+genres_amount<-datos[,'genresAmount']
+genre<-datos[,'genres']
+release_date<-datos[,'releaseDate']
