@@ -16,10 +16,12 @@ datos[,'originalTitle']
 
 id<-datos[,'id']
 original_title<-datos[,'originalTitle']
-presu<-datos[('budget')]
+presu<-datos[,'budget']
+
 
 
 q3<-data.frame(original_title,presu)
+View(q3)
 ask3<-q3[order(-q3$presu),]
 ask3f<-head(ask3,n=10)
 View(ask3f)
