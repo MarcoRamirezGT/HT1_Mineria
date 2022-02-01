@@ -34,6 +34,8 @@ barplot(height = ask3f$voteCount,names=ask3f$original_title,
 #Pregunta 4.6
 
 #Guardamos el valor de las columnas en una variable
+
+library(tidyverse)
 id<-datos[,'id']
 original_title<-datos[,'originalTitle']
 genres_amount<-datos[,'genresAmount']
@@ -53,7 +55,18 @@ View(ask6orderf)
 
 
 data6<-ask6orderf
-View(data6)
+datas<-data6 %>%
+  group_by(genre) %>%
+  tally()
+
+View(datas)
+barplot(height = datas$n,names=datas$genre,
+        col=c('red','green','purple','blue','yellow'),
+        main = 'Generos principales de las 20 peliculas mas recientes')
+
+
+
+
 #Creamos un dataframe con las columnas necesarias.
 
 
