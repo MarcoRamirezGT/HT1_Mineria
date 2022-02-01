@@ -37,15 +37,24 @@ barplot(height = ask3f$voteCount,names=ask3f$original_title,
 id<-datos[,'id']
 original_title<-datos[,'originalTitle']
 genres_amount<-datos[,'genresAmount']
+
+
 genre<-datos[,'genres']
+
 release_date<-datos[,'releaseDate']
 
 
 ask6<-data.frame(original_title,genre,release_date)
 ask6order<-ask6[rev(order(as.Date(ask6$release_date,format="%Y-%m-%d"))),]
-
-ask6orderf<-head(ask6order,n=20)
+ans6<-ask6order[!ask6order$genre=="",]
+ask6orderf<-head(ans6,n=20)
 
 View(ask6orderf)
 
+
+data6<-ask6orderf
+View(data6)
 #Creamos un dataframe con las columnas necesarias.
+
+
+
