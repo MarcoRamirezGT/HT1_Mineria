@@ -61,13 +61,51 @@ datas<-data6 %>%
 
 View(datas)
 barplot(height = datas$n,names=datas$genre,
-        col=c('red','green','purple','blue','yellow'),
-        main = 'Generos principales de las 20 peliculas mas recientes')
+        col=rainbow(10),
+        main = 'Generos principales de las 20 peliculas mas recientes',
+        xlab = "Genero principal",
+        ylab = 'Cantidad')
+
+
+#Pregunta 4.9
+library(tidyverse)
+db<-read.csv('movies.csv')
+men_count<-as.numeric(db[,'castMenAmount'])
+women_count<-as.numeric(db[,'castWomenAmount'])
+movie<-db[,'originalTitle']
+popularity<-db[,'popularity']
+ingresos<-db[,'revenue']
+
+
+tableAsk9<-data.frame(movie,men_count,women_count,popularity,ingresos)
+
+View(tableAsk9)
+str(tableAsk9)
 
 
 
+tableAsk9OrderFilterMen<-filter(tableAsk9,men_count > women_count)
+View(tableAsk9OrderFilterMen)
 
-#Creamos un dataframe con las columnas necesarias.
+promedioHombres<-sum(tableAsk9OrderFilterMen$ingresos)
+promedioMujeres<-sum(tableAsk9OrderFilterWomen$ingresos)
+
+x<-c(promedioHombres,promedioMujeres)
+labels<-c("Hombres","Mujeres")
+
+piepercent<- round(100*x/sum(x), 1)
+
+pie(x, labels=piepercent, main = "Porcentaje de ganancias de cada sexo", col = rainbow(length(x)))
+legend("topright", c("Hombres","Mujeres"), cex = 0.8,
+       fill = rainbow(length(x)))
+
+barplot(height = x,names=labels,
+        col=rainbow(10),
+        main = 'Ganancia de las peliculas con mayor cantidad de actores o actrices',
+        xlab = "Sexo",
+        ylab = 'Promedio de ingreso')
+
+
 
 
 
