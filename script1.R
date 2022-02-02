@@ -85,27 +85,77 @@ str(tableAsk9)
 
 
 tableAsk9OrderFilterMen<-filter(tableAsk9,men_count > women_count)
+tableAsk9OrderFilterWomen<-filter(tableAsk9,men_count < women_count)
 View(tableAsk9OrderFilterMen)
+View(tableAsk9OrderFilterWomen)
 
 promedioHombres<-sum(tableAsk9OrderFilterMen$ingresos)
 promedioMujeres<-sum(tableAsk9OrderFilterWomen$ingresos)
+
+poMen<-sum(tableAsk9OrderFilterMen$popularity)
+poWomen<-sum(tableAsk9OrderFilterWomen$popularity)
+
+xPopu<-c(poMen,poWomen)
+labels<-c("Hombres","Mujeres")
 
 x<-c(promedioHombres,promedioMujeres)
 labels<-c("Hombres","Mujeres")
 
 piepercent<- round(100*x/sum(x), 1)
 
-pie(x, labels=piepercent, main = "Porcentaje de ganancias de cada sexo", col = rainbow(length(x)))
+piepercentPopu<- round(100*xPopu/sum(xPopu), 1)
+
+pie(x, labels=piepercent, main = "Porcentaje de ganancias de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
 legend("topright", c("Hombres","Mujeres"), cex = 0.8,
        fill = rainbow(length(x)))
 
-barplot(height = x,names=labels,
-        col=rainbow(10),
-        main = 'Ganancia de las peliculas con mayor cantidad de actores o actrices',
-        xlab = "Sexo",
-        ylab = 'Promedio de ingreso')
+pie(xPopu, labels=piepercentPopu, main = "Porcentaje de popularidad de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
+legend("topright", c("Hombres","Mujeres"), cex = 0.8,
+       fill = rainbow(length(xPopu)))
 
 
 
+#Pregunta 4.12
+
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+lanzamiento<-datos[,'releaseDate']
+lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+ano<-format(lanzamiento,format="%Y")
+mes<-format(lanzamiento,format="%m")
+dia<-format(lanzamiento,format="%d")
+
+
+
+table12<-data.frame(ingresos,mes)
+View(table12)
+
+
+ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Porcentaje de ingresos de las peliculas segun su mes de lanzamiento", x="Mes", y="Ingresos")
+
+  
+
+#Pregunta 4.15
+
+
+
+db<-read.csv('movies.csv')
+str(db)
+genero<-db[,'genres']
+peli<-db[,'originalTitle']
+duracion<-db[,'runtime']
+
+
+result15<-data.frame(peli,genero,duracion)
+result15<-result15[order(-result15$duracion),]
+result15<-head(result15,n=3)
+View(result15)
 
 
