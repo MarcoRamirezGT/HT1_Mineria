@@ -55,7 +55,7 @@ ask6order<-ask6[rev(order(as.Date(ask6$release_date,format="%Y-%m-%d"))),]
 ans6<-ask6order[!ask6order$genre=="",]
 ask6orderf<-head(ans6,n=20)
 
-View(ask6orderf)
+
 
 
 data6<-ask6orderf
@@ -63,12 +63,14 @@ datas<-data6 %>%
   group_by(genre) %>%
   tally()
 
+datas<-datas[order(-datas$n),]
+
 View(datas)
-barplot(height = datas$n,names=datas$genre,
-        col=rainbow(10),
-        main = 'Generos principales de las 20 peliculas mas recientes',
-        xlab = "Genero principal",
-        ylab = 'Cantidad')
+genero<-datas$genre
+ggplot(data=datas, aes(x=genre, y=n,fill=genero)) +
+  geom_bar(stat="identity")+
+    theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Genero principal de las 20 peliculas mas recientes", x="Genero", y="Cantidad")
 
 
 #Pregunta 4.9

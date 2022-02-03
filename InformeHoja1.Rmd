@@ -71,7 +71,7 @@ pregunta1
 
 \n
 #### Como se observa en la grafica anterior las 10 peliculas con mayor presupuesto son:\n
-<br/>
+
 1. **`r ask3f[1,1]`** con un presupuesto de **`r ask3f[1,2]`** dolares. <br/>
 2. **`r ask3f[2,1]`** con un presupuesto de **`r ask3f[2,2]`** dolares.<br/>
 3. **`r ask3f[3,1]`** con un presupuesto de **`r ask3f[3,2]`** dolares.<br/>
@@ -110,7 +110,7 @@ ask3f<-head(ask3,n=5)
 
 
 
-pregunta2<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
+pregunta4.3<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
   geom_bar(stat="identity")+
   
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
@@ -121,9 +121,73 @@ pregunta2<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,f
 ```
 
 ```{r}
-pregunta2
+pregunta4.3
 
 ```
 
+
+#### Como se observa en la grafica anterior las 10 peliculas con mayor presupuesto son:\n
+
+1. **`r ask3f[1,1]`** con **`r ask3f[1,2]`** de  votos. <br/>
+2. **`r ask3f[2,1]`** con **`r ask3f[2,2]`** de  votos.<br/>
+3. **`r ask3f[3,1]`** con **`r ask3f[3,2]`** de  votos.<br/>
+4. **`r ask3f[4,1]`** con **`r ask3f[4,2]`** de  votos.<br/>
+5. **`r ask3f[5,1]`** con **`r ask3f[5,2]`** de  votos.<br/>
+
+
+
+###  4.4. ¿Cuál es la peor película de acuerdo a los votos de todos los usuarios?
+
+###  4.5. ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico            de barras 
+
+###  4.6. ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el             conjunto de datos? Represéntelo usando un gráfico 
+
+
+```{r include=FALSE}
+library(tidyverse)
+id<-datos[,'id']
+original_title<-datos[,'originalTitle']
+genres_amount<-datos[,'genresAmount']
+
+
+genre<-datos[,'genres']
+
+release_date<-datos[,'releaseDate']
+
+
+ask6<-data.frame(original_title,genre,release_date)
+ask6order<-ask6[rev(order(as.Date(ask6$release_date,format="%Y-%m-%d"))),]
+ans6<-ask6order[!ask6order$genre=="",]
+ask6orderf<-head(ans6,n=20)
+
+
+
+
+data6<-ask6orderf
+datas<-data6 %>%
+  group_by(genre) %>%
+  tally()
+
+datas<-datas[order(-datas$n),]
+
+
+genero<-datas$genre
+
+pregunta4.6<-ggplot(data=datas, aes(x=genre, y=n,fill=genero)) +
+  geom_bar(stat="identity")+
+    theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Genero principal de las 20 peliculas mas recientes", x="Genero", y="Cantidad")
+
+
+```
+```{r}
+pregunta4.6
+```
+
+#### Como se observa en la grafica anterior los generos principales de las 20 peliculas mas recientes son:
+
+1. **`r datas[1,1]`** repitiendose **`r datas[1,2]`** veces. <br/>
+2. **`r datas[2,1]`** repitiendose **`r datas[2,2]`** veces. <br/>
+3. **El resto de generos** repitiendose **`r datas[3,2]`** veces. <br/>
 
 
