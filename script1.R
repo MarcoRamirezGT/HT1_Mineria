@@ -184,3 +184,9 @@ ggplot(data=result15, aes(x=genero, y=duracion,fill=peli)) +
   labs(title="Top 10 peliculas con mayor presupuesto", x="Peliculas", y="Presupuesto")
 
 
+tinytex::install_tinytex()
+# to uninstall TinyTeX, run
+# tinytex::uninstall_tinytex()
+
+update.packages(ask = FALSE, checkBuilt = TRUE)
+tinytex::tlmgr_update()
