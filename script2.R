@@ -9,6 +9,11 @@ names(datos)
 #Pregunta 4.1
 
 
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
 datos[,'id']
 datos[,'budget']
 datos[,'originalTitle']
@@ -28,6 +33,24 @@ View(ask3f)
 
 
 
-barplot(height = ask3f$presu,names=ask3f$original_title,
-        col=c('red','green','purple','blue','yellow'),
-        main = 'Top 10 peliculas con mayor presupuesto')
+ggplot(data=ask3f, aes(x=reorder(original_title,-presu) , y=presu,fill=original_title)) +
+  geom_bar(stat="identity")+
+  scale_y_continuous(labels=scales::dollar)+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mayor presupuesto", x="Peliculas", y="Presupuesto")
+
+
+
+# 
+# barplot(height = ask3f$presu,names=ask3f$original_title,
+#         col=c('red','green','purple','blue','yellow'),
+#         main = 'Top 10 peliculas con mayor presupuesto',
+#         scale_y_continuous(labels=scales::dollar))
+# 
+# 
+# ggplot(data=ask3f, mapping=aes(x=original_title, y=names,fill=original_title)) + 
+#   stat_summary(fun.data=mean_sdl, geom="bar") + 
+#   scale_y_continuous(labels=scales::dollar) + 
+#   labs(title="Porcentaje de ingresos de las peliculas segun su mes de lanzamiento", x="Mes", y="Ingresos")
+
+

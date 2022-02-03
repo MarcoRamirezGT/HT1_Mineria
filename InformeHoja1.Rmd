@@ -1,30 +1,86 @@
 ---
 title: "Informe HDT1"
-author: "Marco Ramirez"
-date: "28/1/2022"
-output: html_document
+author: "Marco Ramirez 19588-Alfredo Queza, Estuardo Hernandez"
+date: "04/4/2022"
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+```{r, include=FALSE}
+datos<-read.csv('movies.csv')
+##summary(datos) #Resumen de los datos
+##nrow(datos) #Cantidad de columnas
+#ncol(datos) #Cantidad de columnas
+#str(datos) #Estructura de los datos
+#names(datos)
+```
+# Hoja de Trabajo 1: Analisis exploratorio
 
-## Hoja de Trabajo 1: Analisis exploratorio
+El objetivo de esta hoja de trabajo era realizar un analisis exploratorio a la base de datos de peliculas, extraido de IMDB. Es base cuenta con `r nrow(datos)` filas y con `r ncol(datos)` de columnas.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+### 1. Haga una exploración rápida de sus datos, para eso haga un resumen de su conjunto de datos. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r}
+summary(datos)
 ```
 
-## Including Plots
+### 2. Diga el tipo de cada una de las variables (cualitativa ordinal o nominal, cuantitativa continua, cuantitativa discreta)
+![Caption for the picture.](/Users/MAQUITO/Desktop/UVG/UVG S7/Mineria de datos/HDT1/HDT1_F/HT1_Mineria/Ejercicio2.png)
 
-You can also embed plots, for example:
+### 3. Investigue si las variables cuantitativas siguen una distribución normal y haga una tabla de frecuencias de las variables cualitativas. Explique todos los resultados.  
+### 4. Responda las siguientes preguntas
+###  4.1. ¿Cuáles son las 10 películas que contaron con más presupuesto? 
+```{r , include=FALSE}
+    
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+datos[,'id']
+datos[,'budget']
+datos[,'originalTitle']
+
+
+id<-datos[,'id']
+original_title<-datos[,'originalTitle']
+presu<-datos[,'budget']
+
+
+
+q3<-data.frame(original_title,presu)
+
+ask3<-q3[order(-q3$presu),]
+ask3f<-head(ask3,n=10)
+
+pregunta1<-ggplot(data=ask3f, aes(x=reorder(original_title,-presu) , y=presu,fill=original_title)) +
+  geom_bar(stat="identity")+
+  scale_y_continuous(labels=scales::dollar)+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mayor presupuesto", x="Peliculas", y="Presupuesto")
+
+```
+```{r}
+pregunta1
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+\n
+#### Como se observa en la grafica anterior las 10 peliculas con mayor presupuesto son:\n
+<br/>
+1. **`r ask3f[1,1]`** con un presupuesto de **`r ask3f[1,2]`** dolares. <br/>
+2. **`r ask3f[2,1]`** con un presupuesto de **`r ask3f[2,2]`** dolares.<br/>
+3. **`r ask3f[3,1]`** con un presupuesto de **`r ask3f[3,2]`** dolares.<br/>
+4. **`r ask3f[4,1]`** con un presupuesto de **`r ask3f[4,2]`** dolares.<br/>
+5. **`r ask3f[5,1]`** con un presupuesto de **`r ask3f[5,2]`** dolares.<br/>
+6. **`r ask3f[6,1]`** con un presupuesto de **`r ask3f[6,2]`** dolares.<br/>
+7. **`r ask3f[7,1]`** con un presupuesto de **`r ask3f[7,2]`** dolares.<br/>
+8. **`r ask3f[8,1]`** con un presupuesto de **`r ask3f[8,2]`** dolares.<br/>
+9. **`r ask3f[9,1]`** con un presupuesto de **`r ask3f[9,2]`** dolares.<br/>
+10. **`r ask3f[10,1]`** con un presupuesto de **`r ask3f[10,2]`** dolares.<br/>
+
+
