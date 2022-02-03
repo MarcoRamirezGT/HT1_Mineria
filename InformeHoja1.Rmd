@@ -138,9 +138,9 @@ pregunta4.3
 
 ###  4.4. ¿Cuál es la peor película de acuerdo a los votos de todos los usuarios?
 
-###  4.5. ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico            de barras 
+###  4.5. ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
 
-###  4.6. ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el             conjunto de datos? Represéntelo usando un gráfico 
+###  4.6. ¿Cuál es el género principal de las 20 películas más recientes? ¿Cuál es el género principal que predomina en el conjunto de datos? Represéntelo usando un gráfico 
 
 
 ```{r include=FALSE}
@@ -190,4 +190,147 @@ pregunta4.6
 2. **`r datas[2,1]`** repitiendose **`r datas[2,2]`** veces. <br/>
 3. **El resto de generos** repitiendose **`r datas[3,2]`** veces. <br/>
 
+###  4.9. ¿Es posible que la cantidad de hombres y mujeres en el  reparto influya en la popularidad y los ingresos de las películas? 
+
+```{r include=FALSE}
+
+library(tidyverse)
+db<-read.csv('movies.csv')
+men_count<-as.numeric(db[,'castMenAmount'])
+women_count<-as.numeric(db[,'castWomenAmount'])
+movie<-db[,'originalTitle']
+popularity<-db[,'popularity']
+ingresos<-db[,'revenue']
+
+
+tableAsk9<-data.frame(movie,men_count,women_count,popularity,ingresos)
+
+
+
+
+
+tableAsk9OrderFilterMen<-filter(tableAsk9,men_count > women_count)
+tableAsk9OrderFilterWomen<-filter(tableAsk9,men_count < women_count)
+
+
+promedioHombres<-sum(tableAsk9OrderFilterMen$ingresos)
+promedioMujeres<-sum(tableAsk9OrderFilterWomen$ingresos)
+
+poMen<-sum(tableAsk9OrderFilterMen$popularity)
+poWomen<-sum(tableAsk9OrderFilterWomen$popularity)
+
+xPopu<-c(poMen,poWomen)
+labels<-c("Hombres","Mujeres")
+
+x<-c(promedioHombres,promedioMujeres)
+labels<-c("Hombres","Mujeres")
+
+piepercent<- round(100*x/sum(x), 1)
+
+piepercentPopu<- round(100*xPopu/sum(xPopu), 1)
+
+
+
+
+```
+```{r}
+pie(x, labels=piepercent, main = "Porcentaje de ganancias de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
+                legend("topright", c("Hombres","Mujeres"), cex = 0.8,
+                       fill = rainbow(length(x)))
+```
+
+Como se observa en la grafica, del 100% de los ingresos de las peliculas en la base de datos, se demuestra que el `r piepercent[1:1]`% de los ingresos se debe cuando hay mas actores que actrices.
+
+```{r}
+pie(xPopu, labels=piepercentPopu, main = "Porcentaje de popularidad de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
+legend("topright", c("Hombres","Mujeres"), cex = 0.8,
+       fill = rainbow(length(xPopu)))
+
+
+```
+
+Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres que mujeres otienen mayor popularidad. Sin embargo, estos porcentajes son menores a diferencia de los porcentajes de ingresos.
+
+
+###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
+
+
+```{r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+lanzamiento<-datos[,'releaseDate']
+lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+ano<-format(lanzamiento,format="%Y")
+mes<-format(lanzamiento,format="%m")
+dia<-format(lanzamiento,format="%d")
+
+
+
+table12<-data.frame(ingresos,mes)
+
+
+
+pregunta4.12<-ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Porcentaje de ingresos de las peliculas segun su mes de lanzamiento", x="Mes", y="Ingresos")
+
+```
+```{r}
+pregunta4.12
+```
+<br/>
+Para la elaboracion de esta grafica fue necesario promediar el ingreso de las peliculas respecto a su mes de lanzamiento, evidenciando que el mes con mayor ingresos segun su fecha de lanzamiento es **Junio** , siguiendo **Mayo** y como tercer lugar a **Julio**. Demostrando que el peor mes para lanzar una pelicual es **Septiembre** 
+
+###  4.15. ¿A qué género principal pertenecen las películas más largas? 
+
+```{r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
+db<-read.csv('movies.csv')
+str(db)
+genero<-db[,'genres']
+peli<-db[,'originalTitle']
+duracion<-db[,'runtime']
+
+
+result15<-data.frame(peli,genero,duracion)
+result15<-result15[order(-result15$duracion),]
+result15<-head(result15,n=7)
+r1<-head(result15,n=7)
+
+
+result15[1,1]<-'Pelicula con mayor duracion'
+
+pregunta4.15<-ggplot(data=result15, aes(x=genero, y=duracion,fill=peli)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 7 peliculas con mayor duracion y su genero principal", x="Genero", y="Duracion")
+
+
+
+
+```
+
+```{r}
+pregunta4.15
+
+```
+
+Como se observa en la grafica anterior , las 5 peliculas con mayor duracion y su respectivo genero fueron: <br/>
+
+1. **`r r1[1,1]`** con una duracion de **`r r1[1,3]`** minutos y su genero es **`r r1[1,2]`** (cabe mencionar que para fines estadisticos fue necesario cambiar el nombre de esta pelicula por "Pelicula con mayor duracion" esto debido que su nombre era demasiado largo para mostrar graficamente).<br/>
+
+2. **`r r1[2,1]`** con una duracion de **`r r1[2,3]`** minutos y su genero es **`r r1[2,2]`** 
+3. **`r r1[3,1]`** con una duracion de **`r r1[3,3]`** minutos y su genero es **`r r1[3,2]`** 
+4. **`r r1[4,1]`** con una duracion de **`r r1[4,3]`** minutos y su genero es **`r r1[4,2]`** 
+5. **`r r1[5,1]`** con una duracion de **`r r1[5,3]`** minutos y su genero es **`r r1[5,2]`** 
+6. **`r r1[6,1]`** con una duracion de **`r r1[6,3]`** minutos y su genero es **`r r1[6,2]`** 
+5. **`r r1[7,1]`** con una duracion de **`r r1[7,3]`** minutos y su genero es **`r r1[7,2]`** 
 

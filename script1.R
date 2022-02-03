@@ -109,7 +109,12 @@ labels<-c("Hombres","Mujeres")
 
 piepercent<- round(100*x/sum(x), 1)
 
+str(piepercent)
+
+piepercent[1:1]
 piepercentPopu<- round(100*xPopu/sum(xPopu), 1)
+
+
 
 pie(x, labels=piepercent, main = "Porcentaje de ganancias de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
 legend("topright", c("Hombres","Mujeres"), cex = 0.8,
@@ -140,6 +145,9 @@ dia<-format(lanzamiento,format="%d")
 table12<-data.frame(ingresos,mes)
 View(table12)
 
+table12<-table12[order(-table12$ingresos),]
+view(table12)
+
 
 ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
@@ -151,6 +159,9 @@ ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) +
 #Pregunta 4.15
 
 
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
 
 db<-read.csv('movies.csv')
 str(db)
@@ -161,7 +172,15 @@ duracion<-db[,'runtime']
 
 result15<-data.frame(peli,genero,duracion)
 result15<-result15[order(-result15$duracion),]
-result15<-head(result15,n=3)
+result15<-head(result15,n=5)
 View(result15)
+
+result15[1,1]<-'Pelicula con mayor duracion'
+
+ggplot(data=result15, aes(x=genero, y=duracion,fill=peli)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mayor presupuesto", x="Peliculas", y="Presupuesto")
 
 
