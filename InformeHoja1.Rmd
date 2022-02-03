@@ -83,4 +83,47 @@ pregunta1
 9. **`r ask3f[9,1]`** con un presupuesto de **`r ask3f[9,2]`** dolares.<br/>
 10. **`r ask3f[10,1]`** con un presupuesto de **`r ask3f[10,2]`** dolares.<br/>
 
+###  4.2. ¿Cuáles son las 10 películas que más ingresos tuvieron?
+
+###  4.3. ¿Cuál es la película que más votos tuvo? 
+
+
+```{r include=FALSE}
+
+
+datos[,'id']
+datos[,'voteCount']
+datos[,'originalTitle']
+
+
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+voteCount<-datos[('voteCount')]
+
+
+q3<-data.frame(Pelicula,voteCount)
+ask3<-q3[order(-q3$voteCount),]
+ask3f<-head(ask3,n=5)
+
+
+
+
+
+
+pregunta2<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 5 peliculas con mas votos en IMDB", x="Peliculas", y="Votos")
+
+
+
+```
+
+```{r}
+pregunta2
+
+```
+
+
 

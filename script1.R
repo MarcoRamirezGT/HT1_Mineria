@@ -15,20 +15,24 @@ datos[,'originalTitle']
 
 
 id<-datos[,'id']
-original_title<-datos[,'originalTitle']
+Pelicula<-datos[,'originalTitle']
 voteCount<-datos[('voteCount')]
 
 
-q3<-data.frame(original_title,voteCount)
+q3<-data.frame(Pelicula,voteCount)
 ask3<-q3[order(-q3$voteCount),]
 ask3f<-head(ask3,n=5)
-View(ask3f)
 
 
 
-barplot(height = ask3f$voteCount,names=ask3f$original_title,
-        col=c('red','green','purple','blue','yellow'),
-        main = 'Top 5 peliculas con mas votos en IMDB')
+
+
+
+ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 5 peliculas con mas votos en IMDB", x="Peliculas", y="Votos")
 
 
 #Pregunta 4.6
