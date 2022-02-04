@@ -151,7 +151,7 @@ result<-head(result,n=20)
 View(result)
 
 #Creamos el grafico de barras.
-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=ingresos,fill=directores)) + 
+ggplot(data=result, mapping=aes(x=directores, y=ingresos,fill=directores)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
@@ -196,7 +196,7 @@ result<-head(result,n=3)
 View(result)
 
 #Creamos el grafico de barras.
-ggplot(data=result, mapping=aes(x=reorder(ingresos, -mes), y=ingresos,fill=mes)) + 
+ggplot(data=result, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")

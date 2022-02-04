@@ -419,7 +419,7 @@ result<-head(result,n=3)
 View(result)
 
 #Creamos el grafico de barras.
-ggplot(data=result, mapping=aes(x=reorder(ingresos, -mes), y=ingresos,fill=mes)) + 
+ggplot(data=result, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
