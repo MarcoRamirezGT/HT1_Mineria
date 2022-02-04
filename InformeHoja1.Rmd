@@ -20,7 +20,10 @@ datos<-read.csv('movies.csv')
 ```
 # Hoja de Trabajo 1: Analisis exploratorio
 
-El objetivo de esta hoja de trabajo era realizar un analisis exploratorio a la base de datos de peliculas, extraido de IMDB. Es base cuenta con `r nrow(datos)` filas y con `r ncol(datos)` de columnas.
+El objetivo de esta hoja de trabajo era realizar un analisis exploratorio a la base de datos de peliculas, extraido de IMDB. Es base cuenta con `r nrow(datos)` filas y con `r ncol(datos)` de columnas. <br/>
+Para verificar nuestro codigo y lo que hicimos paso por paso puede consultar en nuestro repositorio.<br/>
+
+[LINK DE GITHUB](https://github.com/MarcoRamirezGT/HT1_Mineria)<br/>
 
 ### 1. Haga una exploración rápida de sus datos, para eso haga un resumen de su conjunto de datos. 
 

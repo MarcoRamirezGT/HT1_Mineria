@@ -13,21 +13,21 @@ datos[,'id']
 datos[,'voteCount']
 datos[,'originalTitle']
 
-
+#Le asignamos a la variable id los valores de la columna id de la DB
 id<-datos[,'id']
+#Le asignamos a la variable pelicula los valores de la columna originalTitle de la DB
 Pelicula<-datos[,'originalTitle']
+#Le asignamos a la variable voteCount los valores de la columna voteCount de la DB
 voteCount<-datos[('voteCount')]
+#Al tener seleccionada las columnas con las cuales deseamos trabajar creamos un dataframe, el cual nos permitira observar de mejor manera los datos recolectados.
 
-
+#Creamos el dataframe con las columnas que deseamos
 q3<-data.frame(Pelicula,voteCount)
+#Ordenamos el dataframe para que nos indique de manera descendente los valores de cantidad de votos
 ask3<-q3[order(-q3$voteCount),]
+#Le indicamos al dataframe que solo deseamos ver las primeros 5 filas. 
 ask3f<-head(ask3,n=5)
-
-
-
-
-
-
+#Creamos el grafico de barras que nos demostrara graficamente las 5 peliculas con mayor voto
 ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
   geom_bar(stat="identity")+
   
@@ -44,13 +44,16 @@ id<-datos[,'id']
 original_title<-datos[,'originalTitle']
 genres_amount<-datos[,'genresAmount']
 
+#Nuevamente guardamos los datos de las columnas deseadas en nuevas variables. 
 
 genre<-datos[,'genres']
 
 release_date<-datos[,'releaseDate']
 
-
+#Creamos el dataframe para poder ver mejor los datos
 ask6<-data.frame(original_title,genre,release_date)
+#Ordenamos la columna de release_date por fecha, para esto fue necesario cambiar el formato de la columna, ya que antoriormente
+#se encontraba la columna como tipo char, por ello se cambio a formato date, facilitando asi el ordenamiento de la columna,
 ask6order<-ask6[rev(order(as.Date(ask6$release_date,format="%Y-%m-%d"))),]
 ans6<-ask6order[!ask6order$genre=="",]
 ask6orderf<-head(ans6,n=20)
