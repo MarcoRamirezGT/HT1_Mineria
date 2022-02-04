@@ -171,7 +171,9 @@ pregunta4.4<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount
 pregunta4.4
 
 ```
+### Como se observa en la grafica anterior, la pelicula que presenta menor cantidad de votos es:\n
 
+1. **`r ask3f[1,1]`** con **`r ask3f[1,2]`** voto. <br/>
 
 ###  4.5. ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
 
@@ -251,7 +253,7 @@ resut<-table12 %>%
 result<-filter(resut,ingresos>0)
 result<-filter(result,genre!="")
 
-result<-head(result,n=10)
+result<-head(result,n=5)
 
 
 
@@ -362,7 +364,7 @@ result<-head(result,n=20)
 
 
 
-pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=calificacion,fill=directores)) + 
+pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, calificacion), y=calificacion,fill=directores)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
@@ -452,7 +454,7 @@ result<-head(result,n=3)
 
 
 
-pregunta4.13<-ggplot(data=result, mapping=aes(x=reorder(ingresos, mes), y=ingresos,fill=mes)) + 
+pregunta4.13<-ggplot(data=result, mapping=aes(x= mes, y=ingresos,fill=ingresos)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
