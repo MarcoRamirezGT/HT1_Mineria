@@ -189,7 +189,7 @@ library(dplyr)
 library(tidyverse)
 #Guardamos en variables los datos de las columnas que necesitamos 
 db<-read.csv('movies.csv')
-str(db)
+
 genero<-db[,'genres']
 peli<-db[,'originalTitle']
 duracion<-db[,'runtime']
@@ -214,5 +214,198 @@ pregunta4.15<-ggplot(data=result15, aes(x=genero, y=duracion,fill=peli)) +
 pregunta4.15
 
 
+#Preguntas extras
+
+#Las 7 compañias productoras con mas peliculas lanzadas. 
+#Llamamos a las librerias
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+db<-read.csv('movies.csv')
+
+#Asignamos en variables las variables que necesitamos
+productora<-db[,'productionCompany']
+pelicula<-db[,'originalTitle']
+#Creamos el dataframe
+extra<-data.frame(pelicula,productora)
+
+#Realizamos un group by de las peliculas en base a su productora
+resultado<-extra %>%
+  group_by(productora) %>%
+  tally()
+#Filtramos para evitar tener productoras vacias
+res1<-filter(resultado,productora!='')
+#Ordenamos para obtener la mayor cantidad de peliculas
+res2<-res1[order(-res1$n),]
+#Mostramos solo las 7 productoras con mayor lanzamiento de peliculas 
+res3<-head(res2,n=7)
+
+View(res3)
+#Mostramos la grafica
+ggplot(data=res3, aes(x=reorder(productora,-n), y=n,fill=productora)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 7 productoras con mayor lanzamiento de peliculas", x="Pelicula", y="Cantidad")
 
 
+#Pregunta extra 2
+#Las 3 productoras con mejores ingresos 
+#Llamamos a las librerias
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+db<-read.csv('movies.csv')
+
+#Asignamos en variables las variables que necesitamos
+productora<-db[,'productionCompany']
+ingresos<-db[,'revenue']
+#Creamos el dataframe
+extra2<-data.frame(productora,ingresos)
+View(extra2)
+
+
+resut<-extra2 %>% 
+  group_by(productora) %>% 
+  summarise_all(.funs = mean) 
+
+#Filtramos para evitar tener productoras vacias
+resut<-filter(resut,productora!='')
+#Ordenamos para obtener la mayor cantidad de ingresos
+resut<-resut[order(-resut$ingresos),]
+#Mostramos solo las 3 productoras con mayores ingresos
+resut<-head(resut,n=3)
+
+#Creamos la grafica
+preguntaEx2<-ggplot(data=resut, aes(x=reorder(productora,-ingresos), y=ingresos)) +
+  geom_bar(stat="identity")+
+  scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(vjust = 1, hjust=1))+
+  labs(title="Las 3 productoras con mejores ingresos", x="", y="Ingresos")
+#Mostramos la grafica
+preguntaEx2
+
+
+#Pregunta extra 3
+#Paises donde se llevaron a cabo mas peliculas
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+db<-read.csv('movies.csv')
+
+#Asignamos en variables las variables que necesitamos
+pais<-db[,'productionCountry']
+pelicula<-db[,'originalTitle']
+#Creamos el dataframe
+resEx3<-data.frame(pelicula,pais)
+
+#Realizamos un group by de las peliculas en base a su pais
+resultado<-resEx3 %>%
+  group_by(pais) %>%
+  tally()
+
+
+#Filtramos para evitar tener productoras vacias
+resut<-filter(resultado,pais!='')
+#Ordenamos para obtener la mayor cantidad de ingresos
+resut<-resut[order(-resut$n),]
+
+
+#Mostramos solo las 3 productoras con mayores ingresos
+resut<-head(resut,n=7)
+
+
+#Creamos la grafica
+preguntaEx3<-ggplot(data=resut, aes(x=reorder(pais,-n), y=n,fill=pais)) +
+  geom_bar(stat="identity")+
+ # scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(angle = 60,vjust = 1, hjust=1))+
+  labs(title="Los 7 paises donde mas peliculas se realizaron", x="", y="Cantidad")
+#MOstramos la grafica
+preguntaEx3
+
+
+#Pregunta extra 4
+#¿Cuántas películas se han rodado en Guatemala?
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+db<-read.csv('movies.csv')
+
+#Asignamos en variables las variables que necesitamos
+pais<-db[,'productionCountry']
+pelicula<-db[,'originalTitle']
+#Creamos el dataframe
+resEx4<-data.frame(pelicula,pais)
+#Filtramos el dataframe para que solo muestre las peliculas que se rodaron en Guatemala
+resultadoEx4<-filter(resEx4,pais=="Guatemala")
+
+#Creamos la grafica
+preguntaEx4<-ggplot(data=resultadoEx4, aes(x=pais, y=nrow(resultadoEx4),fill=pais)) +
+  geom_bar(stat="identity")+
+  # scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(angle = 60,vjust = 1, hjust=1))+
+  labs(title="Cantidad de peliculas rodadas en Guatemala", x="", y="Cantidad")
+#Mostramos la grafica
+preguntaEx4
+
+
+#Pregunta extra 5
+
+#¿Cuáles son las películas más viejas?
+#Llamamos a llamar las librerias necesarias.
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+#Guardamos en variables los datos de las columnas que necesitamos 
+datos<-read.csv('movies.csv')
+pelicula<-db[,'originalTitle']
+lanzamiento<-datos[,'releaseDate']
+#Cambiamos el formato de la columna, ya que dentro de la BD era tipo char por ende se cambio a formato de fecha
+lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+#Creamos el dataframe
+resEx5<-data.frame(pelicula,lanzamiento)
+View(resEx5)
+#Ordenamos el dataframe por orden de lanzamiento
+resutadoEx5<-resEx5[order(resEx5$lanzamiento),]
+resutadoEx5<-head(resutadoEx5,n=5)
+
+
+#Creamos la grafica
+preguntaEx5<-ggplot(data=resutadoEx5, aes(x=reorder(pelicula,lanzamiento) , y=lanzamiento,fill=pelicula)) +
+  geom_bar(stat="identity")+
+  # scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(angle = 60,vjust = 1, hjust=1))+
+  labs(title="Las 7 peliculas mas viejas guardadas en la base de datos", x="", y="Fecha de lanzamiento")
+#Mostramos la grafica
+preguntaEx5
+
+
+##Pregunta extra 6
+#¿Cuáles son las películas con mayores países de rodaje?
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+db<-read.csv('movies.csv')
+
+#Asignamos en variables las variables que necesitamos
+cantidadPaises<-db[,'productionCountriesAmount']
+pelicula<-db[,'originalTitle']
+#Creamos el dataframe
+
+resEx6<-data.frame(pelicula,cantidadPaises)
+#Ordenamos el dataframe por cantidad de paises
+r1<-resEx6[order(-resEx6$cantidadPaises),]
+#Solicitamos solo las 7 primeras filas
+r2<-head(r1,n=7)
+#Creamos la grafica
+preguntaEx6<-ggplot(data=r2, aes(x=reorder(pelicula,-cantidadPaises) , y=cantidadPaises,fill=pelicula)) +
+  geom_bar(stat="identity")+
+  # scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(angle = 60,vjust = 1, hjust=1))+
+  labs(title="Las 7 peliculas con mayor cantidad de paises de rodaje", x="", y="Cantidad de paises")
+#Mostramos la grafica
+preguntaEx6
