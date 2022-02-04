@@ -20,7 +20,7 @@ datos<-read.csv('movies.csv')
 ```
 # Hoja de Trabajo 1: Analisis exploratorio
 
-El objetivo de esta hoja de trabajo era realizar un analisis exploratorio a la base de datos de peliculas, extraido de IMDB. Es base cuenta de datos con `r nrow(datos)` filas y con `r ncol(datos)` de columnas. <br/>
+El objetivo de esta hoja de trabajo es realizar un analisis exploratorio a la base de datos de peliculas, extraido de IMDB. Dicha base cuenta de datos con `r nrow(datos)` filas y con `r ncol(datos)` de columnas. <br/>
 Para verificar nuestro codigo y lo que hicimos paso por paso puede consultar en nuestro repositorio. Exactamente en el archivo ScriptsFinal podra ver la documentacion de cada pregunta respondida, ademas, dentro del repositorio podra ver el historial de cambios de este informe.<br/>
 
 [LINK DE GITHUB](https://github.com/MarcoRamirezGT/HT1_Mineria)<br/>
@@ -129,7 +129,7 @@ pregunta4.3
 ```
 
 
-#### Como se observa en la grafica anterior las 10 peliculas con mayor presupuesto son:\n
+#### Como se observa en la grafica anterior las 5 peliculas con mas votos en IMDB son:\n
 
 1. **`r ask3f[1,1]`** con **`r ask3f[1,2]`** de  votos. <br/>
 2. **`r ask3f[2,1]`** con **`r ask3f[2,2]`** de  votos.<br/>
@@ -242,7 +242,7 @@ pie(x, labels=piepercent, main = "Porcentaje de ganancias de las peliculas cuand
                        fill = rainbow(length(x)))
 ```
 
-Como se observa en la grafica, del 100% de los ingresos de las peliculas en la base de datos, se demuestra que el `r piepercent[1:1]`% de los ingresos se debe cuando hay mas actores que actrices.
+Como se observa en la grafica, del 100% de los ingresos de las peliculas en la base de datos, se demuestra que el `r piepercent[1:1]`% de los ingresos se debe cuando hay mas actores que actrices. Evidenciando que si influye que hayan mas actores que actrices.
 
 ```{r}
 pie(xPopu, labels=piepercentPopu, main = "Porcentaje de popularidad de las peliculas cuando hay un sexo predominante", col = rainbow(length(x)))
@@ -252,7 +252,7 @@ legend("topright", c("Hombres","Mujeres"), cex = 0.8,
 
 ```
 
-Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres que mujeres otienen mayor popularidad. Sin embargo, estos porcentajes son menores a diferencia de los porcentajes de ingresos.
+Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres que mujeres obtienen mayor popularidad. Sin embargo, estos porcentajes son menores a diferencia de los porcentajes de ingresos.
 
 
 ###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
@@ -370,7 +370,7 @@ preguntaEx1<-ggplot(data=res3, aes(x=reorder(productora,-n), y=n,fill=productora
   geom_bar(stat="identity")+
   
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
-  labs(title="Top 7 productoras con mayor lanzamiento de peliculas", x="Pelicula", y="Cantidad")
+  labs(title="Las 7 productoras con mayor cantidad de peliculas lanzadas", x="Pelicula", y="Cantidad")
 ```
 ```{r}
 preguntaEx1
