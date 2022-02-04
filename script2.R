@@ -46,7 +46,7 @@ ggplot(data=ask3f, aes(x=reorder(original_title,-presu) , y=presu,fill=original_
 
 
 
-#Pregunta 4.3
+#Pregunta 4.4
 
 #Llamada de las variables necesarias
 datos[,'id']
