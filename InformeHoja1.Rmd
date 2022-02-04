@@ -422,11 +422,11 @@ result<-head(result,n=20)
 
 
 
-pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill=directores)) + 
+pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill='red')) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
-  scale_y_continuous(labels=scales::dollar) + 
-  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+  #scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")
+  #theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
 
 ```
 ``` {r}
