@@ -80,7 +80,6 @@ datos<-read.csv('movies.csv')
 ingresos<-datos[,'revenue']
 genre<-datos[,'genres']
 
-#Drama
 
 table12<-data.frame(ingresos,genre)
 View(table12)
@@ -93,8 +92,7 @@ pbe<-filter(table12,genre=="Action")
 View(pbe)
 
 mean(pbe$ingresos)
-#13928637
-#13928637
+
 
 library(dplyr)
 resut<-table12 %>% 
@@ -120,23 +118,32 @@ ggplot(data=result, mapping=aes(x=reorder(genre, -ingresos), y=ingresos,fill=gen
 
 
 
+# Pregunta 4.10
+datos<-read.csv('movies.csv')
+directores<-datos[,'director']
+calificacion<-datos[,'voteAvg']
 
 
+table12<-data.frame(directores,calificacion)
+View(table12)
 
 
+table12<-table12[order(-table12$calificacion),]
+view(table12)
 
 
+result<-filter(table12,calificacion>0)
+result<-filter(table12,directores!="")
+View(result)
+result<-head(result,n=20)
+View(result)
 
-# 
-# barplot(height = ask3f$presu,names=ask3f$original_title,
-#         col=c('red','green','purple','blue','yellow'),
-#         main = 'Top 10 peliculas con mayor presupuesto',
-#         scale_y_continuous(labels=scales::dollar))
-# 
-# 
-# ggplot(data=ask3f, mapping=aes(x=original_title, y=names,fill=original_title)) + 
-#   stat_summary(fun.data=mean_sdl, geom="bar") + 
-#   scale_y_continuous(labels=scales::dollar) + 
-#   labs(title="Porcentaje de ingresos de las peliculas segun su mes de lanzamiento", x="Mes", y="Ingresos")
+
+ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=ingresos,fill=directores)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+
 
 
