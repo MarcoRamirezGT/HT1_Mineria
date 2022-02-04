@@ -135,4 +135,21 @@ ggplot(data=ask2f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=Pelicula)
 
 
 
-#PREGUNTA 4.8
+#PREGUNTA 4.14
+datos[,'id']
+datos[,'popularity']
+datos[,'originalTitle']
+
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+popularidad<-datos[, ('popularity')]
+
+q2<-data.frame(Pelicula,popularidad)
+ask2<-q2[order(-q2$popularidad),]
+ask2f<-head(ask2,n=10)
+
+ggplot(data=ask2f, aes(x=reorder(Pelicula,-popularidad) , y=popularidad,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mayor indice de popularidad", x="Peliculas", y="Popularidad")

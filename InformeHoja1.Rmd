@@ -422,11 +422,11 @@ result<-head(result,n=20)
 
 
 
-pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill=directores)) + 
+pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill='red')) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
-  scale_y_continuous(labels=scales::dollar) + 
-  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+  #scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")
+  #theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
 
 ```
 ``` {r}
@@ -456,9 +456,30 @@ Como se puede ver en la grafica, los directores con mejor calificaciones son:
 19. **`r result[19,1]`** con **`r result[19,2]`**  <br/>
 20. **`r result[20,1]`** con **`r result[20,2]`**  <br/>
 
+###  4.11. ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? Haga los gráficos que necesite, histograma, diagrama de dispersión  
+
+```{r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+#Guardamos en variables los datos de las columnas que necesitamos 
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+presupuesto<-datos[,'budget']
+peliculas<-datos[,'originalTitle']
+
+rt411<-data.frame(ingresos,presupuesto)
+
+grupo <- as.factor(ifelse(ingresos < presupuesto , "Grupo 1", "Grupo 2"))
+
+plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 
 
+```
 
+```{r}
+plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
+```
 
 ###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
 

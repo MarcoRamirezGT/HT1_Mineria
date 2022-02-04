@@ -342,10 +342,23 @@ ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=ingresos
   theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
 
 
+#Pregunta 4.11
 
 
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+#Guardamos en variables los datos de las columnas que necesitamos 
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+presupuesto<-datos[,'budget']
+peliculas<-datos[,'originalTitle']
 
+rt411<-data.frame(ingresos,presupuesto)
 
+grupo <- as.factor(ifelse(ingresos < presupuesto , "Grupo 1", "Grupo 2"))
+
+plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 
 
 #Pregunta 4.12
