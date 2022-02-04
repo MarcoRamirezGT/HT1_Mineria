@@ -1,6 +1,6 @@
 ---
 title: "Informe HDT1"
-author: "Marco Ramirez 19588-Alfredo Queza, Estuardo Hernandez"
+author: "Marco Ramirez 19588-Alfredo Quezada, Estuardo Hernandez"
 date: "04/02/2022"
 output:
   html_document: default
@@ -236,10 +236,8 @@ ingresos<-datos[,'revenue']
 genre<-datos[,'genres']
 
 table12<-data.frame(ingresos,genre)
-View(table12)
 
 table12<-table12[order(-table12$ingresos),]
-view(table12)
 
 
 
@@ -252,10 +250,9 @@ resut<-table12 %>%
 
 result<-filter(resut,ingresos>0)
 result<-filter(result,genre!="")
-View(result)
 
 result<-head(result,n=10)
-View(result)
+
 
 
 pregunta4.7<-ggplot(data=result, mapping=aes(x=reorder(genre, -ingresos), y=ingresos,fill=genre)) + 
@@ -341,27 +338,31 @@ Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres 
 calificadas?
 
 ``` {r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
+
 datos<-read.csv('movies.csv')
 directores<-datos[,'director']
 calificacion<-datos[,'voteAvg']
 
 
 table12<-data.frame(directores,calificacion)
-View(table12)
+
 
 
 table12<-table12[order(-table12$calificacion),]
-view(table12)
 
 result<-filter(table12,calificacion>0)
 
 result<-filter(table12,directores!="")
-View(result)
+
 result<-head(result,n=20)
-View(result)
 
 
-pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=ingresos,fill=directores)) + 
+
+pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=calificacion,fill=directores)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
@@ -369,7 +370,7 @@ pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacio
 
 ```
 ``` {r}
-pregunta4.10
+  pregunta4.10
 ```
 
 
@@ -405,6 +406,8 @@ pregunta4.12<-ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) +
   labs(title="Porcentaje de ingresos de las peliculas segun su mes de lanzamiento", x="Mes", y="Ingresos")
 
 ```
+
+
 ```{r}
 pregunta4.12
 ```
@@ -435,22 +438,21 @@ dia<-format(lanzamiento,format="%d")
 
 
 table12<-data.frame(ingresos,mes)
-View(table12)
+
 
 
 table12<-table12[order(-table12$ingresos),]
-View(table12)
 
 
 result<-filter(table12,ingresos>0)
 
 result<-filter(table12,ingresos!="")
-View(result)
+
 result<-head(result,n=3)
-View(result)
 
 
-ggplot(data=result, mapping=aes(x=reorder(ingresos, -mes), y=ingresos,fill=mes)) + 
+
+pregunta4.13<-ggplot(data=result, mapping=aes(x=reorder(ingresos, mes), y=ingresos,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
   labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
