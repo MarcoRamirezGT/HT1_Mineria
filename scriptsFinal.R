@@ -115,8 +115,40 @@ ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicul
 
 
 #Pregunta 4.5
+# ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
+datos<-read.csv('movies.csv')
+
+pelicula<-datos[,'originalTitle']
+lanzamiento<-datos[,'releaseDate']
+#Cambiamos el formato de la columna, ya que dentro de la BD era tipo char por ende se cambio a formato de fecha
+lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+#Separamos la fecha por 3 columnas, una para dia, otra para mes y otra para ano, para mayor facilidad
+ano<-format(lanzamiento,format="%Y")
+mes<-format(lanzamiento,format="%m")
+dia<-format(lanzamiento,format="%d")
 
 
+#Creamos el dataframe
+ask4_5<-data.frame(pelicula,ano)
+
+resultado4_5<-ask4_5 %>%
+  group_by(ano) %>%
+  tally()
+
+rsa<-resultado4_5[order(-resultado4_5$n),]
+
+res45<-head(rsa,n=7)
+
+
+pregunta4_5<-ggplot(data=res45, aes(x=reorder(ano,-n) , y=n,fill=ano)) +
+  geom_bar(stat="identity")+
+  # scale_y_continuous(labels=scales::dollar) + 
+  theme(axis.text.x = element_text(angle = 60,vjust = 1, hjust=1))+
+  labs(title="Los 7 anos con mayor lanzamiento de peliculas", x="", y="Cantidad de peliculas")
 
 
 #Pregunta 4.6
