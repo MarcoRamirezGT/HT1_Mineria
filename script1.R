@@ -149,7 +149,7 @@ table12<-data.frame(ingresos,mes)
 View(table12)
 
 table12<-table12[order(-table12$ingresos),]
-view(table12)
+View(table12)
 
 
 ggplot(data=table12, mapping=aes(x=mes, y=ingresos,fill=mes)) + 

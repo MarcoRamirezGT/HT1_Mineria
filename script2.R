@@ -80,19 +80,40 @@ datos<-read.csv('movies.csv')
 ingresos<-datos[,'revenue']
 genre<-datos[,'genres']
 
-
+#Drama
 
 table12<-data.frame(ingresos,genre)
 View(table12)
 
+
 table12<-table12[order(-table12$ingresos),]
 view(table12)
 
+pbe<-filter(table12,genre=="Action")
+View(pbe)
 
-ggplot(data=table12, mapping=aes(x=genre, y=ingresos,fill=genre)) + 
+mean(pbe$ingresos)
+#13928637
+#13928637
+
+library(dplyr)
+resut<-table12 %>% 
+  group_by(genre) %>% 
+  summarise_all(.funs = mean) 
+
+
+result<-filter(resut,ingresos>0)
+result<-filter(result,genre!="")
+View(result)
+result<-head(result,n=10)
+View(result)
+
+
+ggplot(data=result, mapping=aes(x=reorder(genre, -ingresos), y=ingresos,fill=genre)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
   scale_y_continuous(labels=scales::dollar) + 
-  labs(title="Las películas de qué genero principal obtuvieron mayores ganancias", x="Genero", y="Ingresos")
+  labs(title="Las películas de qué genero principal obtuvieron mayores ganancias", x="Genero", y="Ingresos")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
 
 
 
