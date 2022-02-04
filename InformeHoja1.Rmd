@@ -1,6 +1,6 @@
 ---
 title: "Informe HDT1"
-author: "Marco Ramirez 19588-Alfredo Quezada, Estuardo Hernandez"
+author: "Marco Ramirez 19588, Alfredo Quezada 191002, Estuardo Hernandez"
 date: "04/02/2022"
 output:
   html_document: default
