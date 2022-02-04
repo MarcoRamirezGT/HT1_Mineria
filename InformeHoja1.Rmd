@@ -140,6 +140,38 @@ pregunta4.3
 
 
 ###  4.4. ¿Cuál es la peor película de acuerdo a los votos de todos los usuarios?
+```{r include=FALSE}
+
+
+datos[,'id']
+datos[,'voteCount']
+datos[,'originalTitle']
+
+
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+voteCount<-datos[('voteCount')]
+
+
+q3<-data.frame(Pelicula,voteCount)
+ask3<-q3[order(q3$voteCount),]
+ask3f<-head(ask3,n=1)
+
+
+pregunta4.4<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Pelicula con menos votos segun los usuarios", x="Peliculas", y="Votos")
+
+
+
+```
+```{r}
+pregunta4.4
+
+```
+
 
 ###  4.5. ¿Cuántas  películas  se  hicieron  en  cada  año?  ¿En  qué  año  se  hicieron  más películas? Haga un gráfico de barras 
 
@@ -192,6 +224,54 @@ pregunta4.6
 1. **`r datas[1,1]`** repitiendose **`r datas[1,2]`** veces. <br/>
 2. **`r datas[2,1]`** repitiendose **`r datas[2,2]`** veces. <br/>
 3. **El resto de generos** repitiendose **`r datas[3,2]`** veces. <br/>
+
+
+### 4.7 ¿Las películas de qué genero principal obtuvieron mayores ganancias?
+```{r include=FALSE}
+library(tidyverse)
+
+
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+genre<-datos[,'genres']
+
+table12<-data.frame(ingresos,genre)
+View(table12)
+
+table12<-table12[order(-table12$ingresos),]
+view(table12)
+
+
+
+
+library(dplyr)
+resut<-table12 %>% 
+  group_by(genre) %>% 
+  summarise_all(.funs = mean) 
+
+
+result<-filter(resut,ingresos>0)
+result<-filter(result,genre!="")
+View(result)
+
+result<-head(result,n=10)
+View(result)
+
+
+pregunta4.7<-ggplot(data=result, mapping=aes(x=reorder(genre, -ingresos), y=ingresos,fill=genre)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Las películas de qué genero principal obtuvieron mayores ganancias", x="Genero", y="Ingresos")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+
+
+```
+```{r}
+pregunta4.7
+```
+
+
+
 
 ###  4.9. ¿Es posible que la cantidad de hombres y mujeres en el  reparto influya en la popularidad y los ingresos de las películas? 
 
@@ -255,6 +335,49 @@ legend("topright", c("Hombres","Mujeres"), cex = 0.8,
 Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres que mujeres obtienen mayor popularidad. Sin embargo, estos porcentajes son menores a diferencia de los porcentajes de ingresos.
 
 
+
+
+### 4.10.  ¿Quiénes son los directores que hicieron las 20 películas mejor
+calificadas?
+
+``` {r include=FALSE}
+datos<-read.csv('movies.csv')
+directores<-datos[,'director']
+calificacion<-datos[,'voteAvg']
+
+
+table12<-data.frame(directores,calificacion)
+View(table12)
+
+
+table12<-table12[order(-table12$calificacion),]
+view(table12)
+
+result<-filter(table12,calificacion>0)
+
+result<-filter(table12,directores!="")
+View(result)
+result<-head(result,n=20)
+View(result)
+
+
+pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, -calificacion), y=ingresos,fill=directores)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Quiénes son los directores que hicieron las 20 películas mejor calificadas", x="Directores", y="Calificacion")+
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))
+
+```
+``` {r}
+pregunta4.10
+```
+
+
+
+
+
+
+
 ###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
 
 
@@ -287,6 +410,59 @@ pregunta4.12
 ```
 <br/>
 Para la elaboracion de esta grafica fue necesario promediar el ingreso de las peliculas respecto a su mes de lanzamiento, evidenciando que el mes con mayor ingresos segun su fecha de lanzamiento es **Junio** , siguiendo **Mayo** y como tercer lugar a **Julio**. Demostrando que el peor mes para lanzar una pelicula es **Septiembre** 
+
+
+
+
+
+
+### 4.13.  ¿En qué meses se han visto los lanzamientos con mejores ingresos?
+``` {r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
+
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+lanzamiento<-datos[,'releaseDate']
+
+lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+ano<-format(lanzamiento,format="%Y")
+mes<-format(lanzamiento,format="%m")
+dia<-format(lanzamiento,format="%d")
+
+
+
+table12<-data.frame(ingresos,mes)
+View(table12)
+
+
+table12<-table12[order(-table12$ingresos),]
+View(table12)
+
+
+result<-filter(table12,ingresos>0)
+
+result<-filter(table12,ingresos!="")
+View(result)
+result<-head(result,n=3)
+View(result)
+
+
+ggplot(data=result, mapping=aes(x=reorder(ingresos, -mes), y=ingresos,fill=mes)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
+
+```
+```{r}
+pregunta4.13
+```
+
+
+
+
 
 ###  4.15. ¿A qué género principal pertenecen las películas más largas? 
 
