@@ -429,9 +429,30 @@ pregunta4.10<-ggplot(data=result, mapping=aes(x=reorder(directores, calificacion
 
 
 
+###  4.11. ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? Haga los gráficos que necesite, histograma, diagrama de dispersión  
+
+```{r include=FALSE}
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+#Guardamos en variables los datos de las columnas que necesitamos 
+datos<-read.csv('movies.csv')
+ingresos<-datos[,'revenue']
+presupuesto<-datos[,'budget']
+peliculas<-datos[,'originalTitle']
+
+rt411<-data.frame(ingresos,presupuesto)
+
+grupo <- as.factor(ifelse(ingresos < presupuesto , "Grupo 1", "Grupo 2"))
+
+plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 
 
+```
 
+```{r}
+plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
+```
 
 ###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
 
