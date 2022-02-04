@@ -321,7 +321,13 @@ pregunta4.7<-ggplot(data=result, mapping=aes(x=reorder(genre, -ingresos), y=ingr
 pregunta4.7
 ```
 
+Como se logra apreciar de manera formal en la grafica, los 5 generos que mas ganancias obtuvieron fueron:
 
+1. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
+2. **`r result[2,1]`** con **`r result[2,2]`**  <br/>
+3. **`r result[3,1]`** con **`r result[3,2]`**  <br/>
+4. **`r result[4,1]`** con **`r result[4,2]`**  <br/>
+5. **`r result[5,1]`** con **`r result[5,2]`**  <br/>
 
 
 ###  4.9. ¿Es posible que la cantidad de hombres y mujeres en el  reparto influya en la popularidad y los ingresos de las películas? 
@@ -427,7 +433,28 @@ pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill=
   pregunta4.10
 ```
 
+Como se puede ver en la grafica, los directores con mejor calificaciones son:
 
+1. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
+2. **`r result[2,1]`** con **`r result[2,2]`**  <br/>
+3. **`r result[3,1]`** con **`r result[3,2]`**  <br/>
+4. **`r result[4,1]`** con **`r result[4,2]`**  <br/>
+5. **`r result[5,1]`** con **`r result[5,2]`**  <br/>
+6. **`r result[6,1]`** con **`r result[6,2]`**  <br/>
+7. **`r result[7,1]`** con **`r result[7,2]`**  <br/>
+8. **`r result[8,1]`** con **`r result[8,2]`**  <br/>
+9. **`r result[9,1]`** con **`r result[9,2]`**  <br/>
+10. **`r result[10,1]`** con **`r result[10,2]`**  <br/>
+11. **`r result[11,1]`** con **`r result[11,2]`**  <br/>
+12. **`r result[12,1]`** con **`r result[12,2]`**  <br/>
+13. **`r result[13,1]`** con **`r result[13,2]`**  <br/>
+14. **`r result[14,1]`** con **`r result[14,2]`**  <br/>
+15. **`r result[15,1]`** con **`r result[15,2]`**  <br/>
+16. **`r result[16,1]`** con **`r result[16,2]`**  <br/>
+17. **`r result[17,1]`** con **`r result[17,2]`**  <br/>
+18. **`r result[18,1]`** con **`r result[18,2]`**  <br/>
+19. **`r result[19,1]`** con **`r result[19,2]`**  <br/>
+20. **`r result[20,1]`** con **`r result[20,2]`**  <br/>
 
 
 
@@ -516,8 +543,11 @@ pregunta4.13<-ggplot(data=result, mapping=aes(x= mes, y=ingresos,fill=ingresos))
 pregunta4.13
 ```
 
+Como se puede ver en la grafica, son 3 los meses que representan mejor ingresos, los cuales son:
 
-
+1. **`r result[1,1]`** con un ingreso de **`r result[1,2]`**  <br/>
+2. **`r result[2,1]`** con un ingreso de **`r result[2,2]`**  <br/>
+3. **`r result[3,1]`** con un ingreso de **`r result[3,2]`**  <br/>
 
 
 ###  4.15. ¿A qué género principal pertenecen las películas más largas? 
