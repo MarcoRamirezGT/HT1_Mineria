@@ -71,35 +71,40 @@ ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount,fill=Pelicul
 
 
 
+
 #Pregunta 4.7
 
 library(tidyverse)
-id<-datos[,'id']
-original_title<-datos[,'originalTitle']
-genres_amount<-datos[,'genresAmount']
 
-genre<-datos[,'genres']
+datos<-read.csv('movies.csv')
 ingresos<-datos[,'revenue']
+genre<-datos[,'genres']
 
 
-ask6<-data.frame(original_title,genre,ingresos)
-ask6order<-ask6[rev(order(ask6$ingresos)),]
-ans6<-ask6order[!ask6order$ingresos=="",]
-ask6orderf<-head(ans6,n=5)
 
-data6<-ask6orderf
-datas<-data6 %>%
-  group_by(genre) %>%
-  tally()
+table12<-data.frame(ingresos,genre)
+View(table12)
 
-datas<-datas[order(-datas$n),]
+table12<-table12[order(-table12$ingresos),]
+view(table12)
 
-View(datas)
-genero<-datas$genre
-ggplot(data=datas, aes(x=genre, y=n,fill=genero)) +
-  geom_bar(stat="identity")+
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
-  labs(title="Las películas de qué genero principal obtuvieron mayores ganancias", x="Genero", y="Ganancias")
+
+ggplot(data=table12, mapping=aes(x=genre, y=ingresos,fill=genre)) + 
+  stat_summary(fun.data=mean_sdl, geom="bar") + 
+  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Las películas de qué genero principal obtuvieron mayores ganancias", x="Genero", y="Ingresos")
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 
 # barplot(height = ask3f$presu,names=ask3f$original_title,
