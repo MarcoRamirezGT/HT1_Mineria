@@ -35,8 +35,142 @@ summary(datos)
 ![Caption for the picture.](/Users/MAQUITO/Desktop/UVG/UVG S7/Mineria de datos/HDT1/HDT1_F/HT1_Mineria/Ejercicio2.png)
 
 ### 3. Investigue si las variables cuantitativas siguen una distribución normal y haga una tabla de frecuencias de las variables cualitativas. Explique todos los resultados.  
-### 4. Responda las siguientes preguntas
-###  4.1. ¿Cuáles son las 10 películas que contaron con más presupuesto? 
+
+```{r include=FALSE}
+
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
+
+datos[,'id']
+id<-datos[,'id']
+density <- dnorm(id)
+
+j<-ggplot(data.frame(x = id, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable id", y = "Densidad")
+
+#para la variable budget
+datos[,'budget']
+budget<-datos[,'budget']
+density <- dnorm(budget)
+
+a<-ggplot(data.frame(x = budget, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable budget", y = "Densidad")
+
+#para la variable runtime
+datos[,'runtime']
+runtime<-datos[,'runtime']
+density <- dnorm(runtime)
+
+b<-ggplot(data.frame(x = runtime, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable runtime", y = "Densidad")
+
+#para la variable popularity
+datos[,'popularity']
+popularity<-datos[,'popularity']
+density <- dnorm(popularity)
+
+c<-ggplot(data.frame(x = popularity, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable popularity", y = "Densidad")
+
+#para la variable voteAvg
+datos[,'voteAvg']
+voteAvg<-datos[,'voteAvg']
+density <- dnorm(voteAvg)
+
+d<-ggplot(data.frame(x = voteAvg, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable voteAvg", y = "Densidad")
+
+#para la variable voteCount
+datos[,'voteCount']
+voteCount<-datos[,'voteCount']
+density <- dnorm(voteCount)
+
+e<-ggplot(data.frame(x = voteCount, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable voteCount", y = "Densidad")
+
+#para la variable genresAmount
+datos[,'genresAmount']
+genresAmount<-datos[,'genresAmount']
+density <- dnorm(genresAmount)
+
+f<-ggplot(data.frame(x = genresAmount, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable genresAmount", y = "Densidad")
+
+#para la variable productionCoAmount
+datos[,'productionCoAmount']
+productionCoAmount<-datos[,'productionCoAmount']
+density <- dnorm(productionCoAmount)
+
+g<-ggplot(data.frame(x = productionCoAmount, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable productionCoAmount", y = "Densidad")
+
+#para la variable productionCountriesAmount
+datos[,'productionCountriesAmount']
+productionCountriesAmount<-datos[,'productionCountriesAmount']
+density <- dnorm(productionCountriesAmount)
+
+h<-ggplot(data.frame(x = productionCountriesAmount, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable productionCountriesAmount", y = "Densidad")
+
+#para la variable actorsAmount
+datos[,'actorsAmount']
+actorsAmount<-datos[,'actorsAmount']
+density <- dnorm(actorsAmount)
+
+i<-ggplot(data.frame(x = actorsAmount, y = density)) + 
+  aes(x = x, y = y) +
+  geom_point() + 
+  labs(x = "Variable actorsAmount", y = "Densidad")
+
+
+
+```
+
+```{r}
+#Distribucion para la variable ID
+j 
+#Distribucion para la variable BUDGET
+a
+#Distribucion para la variable RUNTIME
+b
+#Distribucion para la variable POPULARITY
+c
+#Distribucion para la variable VOTEAVG
+d
+#Distribucion para la variable VOTECOUNT
+e
+#Distribucion para la variable GENRESAMOUNT
+f
+#Distribucion para la variable PRODUCCIONAMOUNT
+g
+#Distribucion para la variable PRODUCTION_COUNTRY_AMOUNT
+h
+#Distribucion para la variable ACTORS_AMOUNT
+i
+
+
+```
+### 4. Responda las siguientes preguntas<br/>
+###  4.1. ¿Cuáles son las 10 películas que contaron con más presupuesto? <br/>
 ```{r , include=FALSE}
     
 library(tibbletime)
@@ -87,6 +221,38 @@ pregunta1
 10. **`r ask3f[10,1]`** con un presupuesto de **`r ask3f[10,2]`** dolares.<br/>
 
 ###  4.2. ¿Cuáles son las 10 películas que más ingresos tuvieron?
+
+```{r include=FALSE}
+
+datos[,'id']
+datos[,'revenue']
+datos[,'originalTitle']
+
+#asignación de las variables
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+ingresos<-datos[, ('revenue')]
+
+#Creacion del dataframe
+q2<-data.frame(Pelicula,ingresos)
+ask2<-q2[order(-q2$ingresos),]
+ask2f<-head(ask2,n=10)
+
+#Creacion de un diagrama de barras para tener una representacion visual y analizar mejor los datos
+pregunta4.2<-ggplot(data=ask2f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mas ingresos", x="Peliculas", y="Ingresos")
+
+```
+
+
+```{r}
+
+pregunta4.2
+```
+
 
 ###  4.3. ¿Cuál es la película que más votos tuvo? 
 
@@ -332,6 +498,43 @@ Como se logra apreciar de manera formal en la grafica, los 5 generos que mas gan
 5. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
 
 
+### 4.8 ¿La cantidad de actores influye en los ingresos de las películas?¿se han hecho películas con más actores en los últimos años? 
+
+```{r include=FALSE}
+
+#Variables a utilizar
+datos[,'id']
+datos[,'revenue']
+datos[,'originalTitle']
+datos[,'actorsAmount']
+
+#Asignacion de las variables
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+ingresos<-datos[, 'revenue']
+actores<-datos[, ('actorsAmount')]
+
+#Creacion del dataframe para realizar analisis de tres variables
+q8<-data.frame(ingresos,actores,Pelicula)
+ask8<-q8[order(-q8$ingresos),]
+ask8f<-head(ask8,n=10)
+
+#Representacion grafica mediante un diagrama de barras para comparar los ingresos
+#de las peliculas segun la cantidad de actores
+pregunta4.8<-ggplot(data=ask8f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=actores)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mas actores y sus ingresos", x="Cantidad de Actores por Pelicula", y="Ingresos")
+
+```
+
+
+```{r}
+
+pregunta4.8
+```
+
 ###  4.9. ¿Es posible que la cantidad de hombres y mujeres en el  reparto influya en la popularidad y los ingresos de las películas? 
 
 ```{r include=FALSE}
@@ -547,16 +750,13 @@ ts<-tb13 %>%
   group_by(mes) %>%
   tally()
 
-View(ts)
 
-sum(ts$n)
-mean(ts$n)
 resultado13<-data.frame()
 
-str(ts)
+
 ts$promMes<-c(ts$n/10000)
 
-View(ts)
+
 
 #Creamos la grafica de barras la cual promedia el ingreso de cada mes, obteniendo el siguiente resultado.
 pregunta4.13<-ggplot(data=ts, mapping=aes(x=mes, y=promMes,fill=mes)) + 
@@ -577,6 +777,36 @@ Como se puede ver en la grafica, son 3 los meses que representan mejor ingresos,
 
 El mes que se encuentra con mayor lanzamiento de peliculas es **septiembre**, en segundo lugar **octubre** y seguido por **diciembre**
 
+###  4.14 ¿Cómo se correlacionan las calificaciones con el éxito comercial? 
+```{r include=FALSE}
+
+datos[,'id']
+datos[,'popularity']
+datos[,'originalTitle']
+
+#Asignacion de variables
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+popularidad<-datos[, ('popularity')]
+
+#Creacion del dataframe para comparar dos variables
+q2<-data.frame(Pelicula,popularidad)
+ask2<-q2[order(-q2$popularidad),]
+ask2f<-head(ask2,n=10)
+
+#Representacion grafica para el analisis del top 10 de peliculas mejores calificadas
+pregunta4.14<-ggplot(data=ask2f, aes(x=reorder(Pelicula,-popularidad) , y=popularidad,fill=Pelicula)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mayor indice de popularidad", x="Peliculas", y="Popularidad")
+
+```
+
+```{r}
+pregunta4.14
+
+```
 ###  4.15. ¿A qué género principal pertenecen las películas más largas? 
 
 ```{r include=FALSE}
