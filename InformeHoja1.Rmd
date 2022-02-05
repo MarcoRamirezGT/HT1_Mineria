@@ -1,6 +1,6 @@
 ---
 title: "Informe HDT1"
-author: "Marco Ramirez 19588, Alfredo Quezada 191002, Estuardo Hernandez"
+author: "Marco Ramirez 19588, Alfredo Quezada 191002, Estuardo Hernandez 19202"
 date: "04/02/2022"
 output:
   html_document: default
@@ -171,6 +171,8 @@ pregunta4.4<-ggplot(data=ask3f, aes(x=reorder(Pelicula,-voteCount) , y=voteCount
 pregunta4.4
 
 ```
+
+<br/>
 ### Como se observa en la grafica anterior, la pelicula que presenta menor cantidad de votos es:\n
 
 1. **`r ask3f[1,1]`** con **`r ask3f[1,2]`** voto. <br/>
@@ -323,11 +325,11 @@ pregunta4.7
 
 Como se logra apreciar de manera formal en la grafica, los 5 generos que mas ganancias obtuvieron fueron:
 
-1. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
-2. **`r result[2,1]`** con **`r result[2,2]`**  <br/>
+1. **`r result[5,1]`** con **`r result[5,2]`**  <br/>
+2. **`r result[4,1]`** con **`r result[4,2]`**  <br/>
 3. **`r result[3,1]`** con **`r result[3,2]`**  <br/>
-4. **`r result[4,1]`** con **`r result[4,2]`**  <br/>
-5. **`r result[5,1]`** con **`r result[5,2]`**  <br/>
+4. **`r result[2,1]`** con **`r result[2,2]`**  <br/>
+5. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
 
 
 ###  4.9. ¿Es posible que la cantidad de hombres y mujeres en el  reparto influya en la popularidad y los ingresos de las películas? 
@@ -394,21 +396,20 @@ Y como se ve en la grafica de pie, se observa que las peliculas con mas hombres 
 
 
 
-### 4.10.  ¿Quiénes son los directores que hicieron las 20 películas mejor
-calificadas?
+### 4.10.  ¿Quiénes son los directores que hicieron las 20 películas mejor calificadas?
 
 ``` {r include=FALSE}
 library(tibbletime)
 library(dplyr)
 library(tidyverse)
 
-
 datos<-read.csv('movies.csv')
 directores<-datos[,'director']
 calificacion<-datos[,'voteAvg']
+peliculas<-datos[,'originalTitle']
 
-
-table12<-data.frame(directores,calificacion)
+#Creamos el data frame necesario
+table12<-data.frame(peliculas,directores,calificacion)
 
 
 
@@ -435,26 +436,26 @@ pregunta4.10<-ggplot(data=result, mapping=aes(x=directores, y=calificacion,fill=
 
 Como se puede ver en la grafica, los directores con mejor calificaciones son:
 
-1. **`r result[1,1]`** con **`r result[1,2]`**  <br/>
-2. **`r result[2,1]`** con **`r result[2,2]`**  <br/>
-3. **`r result[3,1]`** con **`r result[3,2]`**  <br/>
-4. **`r result[4,1]`** con **`r result[4,2]`**  <br/>
-5. **`r result[5,1]`** con **`r result[5,2]`**  <br/>
-6. **`r result[6,1]`** con **`r result[6,2]`**  <br/>
-7. **`r result[7,1]`** con **`r result[7,2]`**  <br/>
-8. **`r result[8,1]`** con **`r result[8,2]`**  <br/>
-9. **`r result[9,1]`** con **`r result[9,2]`**  <br/>
-10. **`r result[10,1]`** con **`r result[10,2]`**  <br/>
-11. **`r result[11,1]`** con **`r result[11,2]`**  <br/>
-12. **`r result[12,1]`** con **`r result[12,2]`**  <br/>
-13. **`r result[13,1]`** con **`r result[13,2]`**  <br/>
-14. **`r result[14,1]`** con **`r result[14,2]`**  <br/>
-15. **`r result[15,1]`** con **`r result[15,2]`**  <br/>
-16. **`r result[16,1]`** con **`r result[16,2]`**  <br/>
-17. **`r result[17,1]`** con **`r result[17,2]`**  <br/>
-18. **`r result[18,1]`** con **`r result[18,2]`**  <br/>
-19. **`r result[19,1]`** con **`r result[19,2]`**  <br/>
-20. **`r result[20,1]`** con **`r result[20,2]`**  <br/>
+1.  **`r result[1,1]`** dirigida por **`r result[1,2]`**  obteniendo una puntuacion de **`r result[1,3]`** <br/>
+2.  **`r result[2,1]`** dirigida por **`r result[2,2]`**  obteniendo una puntuacion de **`r result[2,3]`** <br/>
+3.  **`r result[3,1]`** dirigida por **`r result[3,2]`**  obteniendo una puntuacion de **`r result[3,3]`** <br/>
+4.  **`r result[4,1]`** dirigida por **`r result[4,2]`**  obteniendo una puntuacion de **`r result[4,3]`** <br/>
+5.  **`r result[5,1]`** dirigida por **`r result[5,2]`**  obteniendo una puntuacion de **`r result[5,3]`** <br/>
+6.  **`r result[6,1]`** dirigida por **`r result[6,2]`**  obteniendo una puntuacion de **`r result[6,3]`** <br/>
+7.  **`r result[7,1]`** dirigida por **`r result[7,2]`**  obteniendo una puntuacion de **`r result[7,3]`** <br/>
+8.  **`r result[8,1]`** dirigida por **`r result[8,2]`**  obteniendo una puntuacion de **`r result[8,3]`** <br/>
+9.  **`r result[9,1]`** dirigida por **`r result[9,2]`**  obteniendo una puntuacion de **`r result[9,3]`** <br/>
+10. **`r result[10,1]`** dirigida por **`r result[10,2]`** obteniendo una puntuacion de **`r result[10,3]`** <br/>
+11. **`r result[11,1]`** dirigida por **`r result[11,2]`** obteniendo una puntuacion de **`r result[11,3]`** <br/>
+12. **`r result[12,1]`** dirigida por **`r result[12,2]`** obteniendo una puntuacion de **`r result[12,3]`** <br/>
+13. **`r result[13,1]`** dirigida por **`r result[13,2]`** obteniendo una puntuacion de **`r result[13,3]`** <br/>
+14. **`r result[14,1]`** dirigida por **`r result[14,2]`** obteniendo una puntuacion de **`r result[14,3]`** <br/>
+15. **`r result[15,1]`** dirigida por **`r result[15,2]`** obteniendo una puntuacion de **`r result[15,3]`** <br/>
+16. **`r result[16,1]`** dirigida por **`r result[16,2]`** obteniendo una puntuacion de **`r result[16,3]`** <br/>
+17. **`r result[17,1]`** dirigida por **`r result[17,2]`** obteniendo una puntuacion de **`r result[17,3]`** <br/>
+18. **`r result[18,1]`** dirigida por **`r result[18,2]`** obteniendo una puntuacion de **`r result[18,3]`** <br/>
+19. **`r result[19,1]`** dirigida por **`r result[19,2]`** obteniendo una puntuacion de **`r result[19,3]`** <br/>
+20. **`r result[20,1]`** dirigida por **`r result[20,2]`** obteniendo una puntuacion de **`r result[20,3]`** <br/>
 
 ###  4.11. ¿Cómo  se  correlacionan  los  presupuestos  con  los  ingresos?  ¿Los  altos presupuestos significan altos ingresos? Haga los gráficos que necesite, histograma, diagrama de dispersión  
 
@@ -470,7 +471,7 @@ peliculas<-datos[,'originalTitle']
 
 rt411<-data.frame(ingresos,presupuesto)
 
-grupo <- as.factor(ifelse(ingresos < presupuesto , "Grupo 1", "Grupo 2"))
+grupo <- as.factor(ifelse(ingresos < presupuesto , "Ingresos", "Presupuesto"))
 
 plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 
@@ -480,7 +481,8 @@ plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 ```{r}
 plot(x=presupuesto, y=ingresos, pch = as.numeric(grupo), col = grupo)
 ```
-
+<br/>
+Como se observa los puntos rojos equivalen al ingreso de las peliculas, y los puntos negros equivalen al presupuesto de la pelicula, evidenciando que son pocos los casos en donde se llegan a generar perdidas, ya que todo aque, punto rojo que sobrepase el punto negro representan una perdida, caso contrario, entre mas lejos este el punto rojo del punto negro, representa una ganancia excesiva. <br/>
 ###  4.12. ¿Se asocian ciertos meses de lanzamiento con mejores ingresos? 
 
 
@@ -523,41 +525,48 @@ Para la elaboracion de esta grafica fue necesario promediar el ingreso de las pe
 
 ### 4.13.  ¿En qué meses se han visto los lanzamientos con mejores ingresos?
 ``` {r include=FALSE}
+#Llamamos a llamar las librerias necesarias.
 library(tibbletime)
 library(dplyr)
 library(tidyverse)
-
-
+#Guardamos en variables los datos de las columnas que necesitamos 
 datos<-read.csv('movies.csv')
 ingresos<-datos[,'revenue']
 lanzamiento<-datos[,'releaseDate']
-
+#Cambiamos el formato de la columna, ya que dentro de la BD era tipo char por ende se cambio a formato de fecha
 lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+#Separamos la fecha por 3 columnas, una para dia, otra para mes y otra para ano, para mayor facilidad
 ano<-format(lanzamiento,format="%Y")
 mes<-format(lanzamiento,format="%m")
 dia<-format(lanzamiento,format="%d")
 
 
+#Creamos el dataframe que guarde el ingreso de cada pelicula y su respectivo ingreso que obtuvo
+tb13<-data.frame(peliculas,mes)
+ts<-tb13 %>%
+  group_by(mes) %>%
+  tally()
 
-table12<-data.frame(ingresos,mes)
+View(ts)
 
+sum(ts$n)
+mean(ts$n)
+resultado13<-data.frame()
 
+str(ts)
+ts$promMes<-c(ts$n/10000)
 
-table12<-table12[order(-table12$ingresos),]
+View(ts)
 
-
-result<-filter(table12,ingresos>0)
-
-result<-filter(table12,ingresos!="")
-
-result<-head(result,n=3)
-
-
-
-pregunta4.13<-ggplot(data=result, mapping=aes(x= mes, y=ingresos,fill=ingresos)) + 
+#Creamos la grafica de barras la cual promedia el ingreso de cada mes, obteniendo el siguiente resultado.
+pregunta4.13<-ggplot(data=ts, mapping=aes(x=mes, y=promMes,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
-  scale_y_continuous(labels=scales::dollar) + 
-  labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
+  #scale_y_continuous(labels=scales::probability_trans()) + 
+  labs(title="Promedio de peliculas lanzadas segun su mes", x="Mes", y="Porcentaje")
+#Muestra la grafica
+
+
+
 
 ```
 ```{r}
@@ -566,10 +575,7 @@ pregunta4.13
 
 Como se puede ver en la grafica, son 3 los meses que representan mejor ingresos, los cuales son:
 
-1. **`r result[1,1]`** con un ingreso de **`r result[1,2]`**  <br/>
-2. **`r result[2,1]`** con un ingreso de **`r result[2,2]`**  <br/>
-3. **`r result[3,1]`** con un ingreso de **`r result[3,2]`**  <br/>
-
+El mes que se encuentra con mayor lanzamiento de peliculas es **septiembre**, en segundo lugar **octubre** y seguido por **diciembre**
 
 ###  4.15. ¿A qué género principal pertenecen las películas más largas? 
 
@@ -675,7 +681,7 @@ Como se observa en la grafica anterior las 7 productoras con mayor lanzamiento d
 ### 5.2 ¿Cuáles son las productoras con mejores ingresos?
 
 
-```{r include=FALSE}
+```{r include=FALSE,fig.height=50,fig.width=20}
 library(tibbletime)
 library(dplyr)
 library(tidyverse)
@@ -865,7 +871,7 @@ Como se observa en la grafica anterior las peliculas mas viejas guardadas en el 
 5. **`r resutadoEx5[5,1]`** lanzada el **`r resutadoEx5[5,2]`** <br/>
 
 
-### 5.6 ¿Cuáles son las películas con mayores países de rodaje?
+### 5.6 Peliculas con mayores paises visitados para su rodaje
 
 ```{r include=FALSE}
 

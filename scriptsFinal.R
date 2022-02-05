@@ -316,9 +316,10 @@ legend("topright", c("Hombres","Mujeres"), cex = 0.8,
 datos<-read.csv('movies.csv')
 directores<-datos[,'director']
 calificacion<-datos[,'voteAvg']
+peliculas<-datos[,'originalTitle']
 
 #Creamos el data frame necesario
-table12<-data.frame(directores,calificacion)
+table12<-data.frame(peliculas,directores,calificacion)
 View(table12)
 
 #Ordenamos de mayor a menor la califcacion.
@@ -396,47 +397,44 @@ pregunta4.12
 
 
 
-# Pregunta 4.13
 
-#Llamamos a las librerias correspondientes
+#Pregunta 4.13
+#Llamamos a llamar las librerias necesarias.
 library(tibbletime)
 library(dplyr)
 library(tidyverse)
-
-#Llamamos las variables que utilizaremos
+#Guardamos en variables los datos de las columnas que necesitamos 
 datos<-read.csv('movies.csv')
 ingresos<-datos[,'revenue']
 lanzamiento<-datos[,'releaseDate']
-#Filtramos y llamamos por dia, mes y año 
+#Cambiamos el formato de la columna, ya que dentro de la BD era tipo char por ende se cambio a formato de fecha
 lanzamiento<-as.Date(lanzamiento,"%Y-%m-%d")
+#Separamos la fecha por 3 columnas, una para dia, otra para mes y otra para ano, para mayor facilidad
 ano<-format(lanzamiento,format="%Y")
 mes<-format(lanzamiento,format="%m")
 dia<-format(lanzamiento,format="%d")
 
 
-#Creamos el frame que necesitamos 
-table12<-data.frame(ingresos,mes)
-View(table12)
+#Creamos el dataframe que guarde el ingreso de cada pelicula y su respectivo ingreso que obtuvo
+tb13<-data.frame(peliculas,mes)
+ts<-tb13 %>%
+  group_by(mes) %>%
+  tally()
 
-#Ordenamos los valores en base al ingreso
-table12<-table12[order(-table12$ingresos),]
-View(table12)
 
-#filtramos para que no hayan valores iguales a 0
-result<-filter(table12,ingresos>0)
-#Filtramos para que no hayan nulos.
-result<-filter(table12,ingresos!="")
-View(result)
-#Limitamos a 3 la busqueda ya que si se deja el valor completo se vuelve en una busqueda repetida.
-result<-head(result,n=3)
-View(result)
+resultado13<-data.frame()
 
-#Creamos el grafico de barras.
-ggplot(data=result, mapping=aes(x=mes, y=ingresos,fill=mes)) + 
+
+ts$promMes<-c(ts$n/10000)
+
+
+#Creamos la grafica de barras la cual promedia el ingreso de cada mes, obteniendo el siguiente resultado.
+pregunta4.13<-ggplot(data=ts, mapping=aes(x=mes, y=promMes,fill=mes)) + 
   stat_summary(fun.data=mean_sdl, geom="bar") + 
-  scale_y_continuous(labels=scales::dollar) + 
-  labs(title="Meses con mejores ingresos", x="Mes", y="Ingresos")
-
+#  scale_y_continuous(labels=scales::dollar) + 
+  labs(title="Cantidad de peliculas por el mes de lanzamiento", x="Mes", y="Cantidad")
+#Muestra la grafica
+pregunta4.13
 
 
 
