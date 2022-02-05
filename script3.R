@@ -135,6 +135,29 @@ ggplot(data=ask2f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=Pelicula)
 
 
 
+#PREGUNTA 4.8
+datos[,'id']
+datos[,'revenue']
+datos[,'originalTitle']
+datos[,'actorsAmount']
+
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+ingresos<-datos[, 'revenue']
+actores<-datos[, ('actorsAmount')]
+
+q8<-data.frame(ingresos,actores,Pelicula)
+ask8<-q8[order(-q8$ingresos),]
+ask8f<-head(ask8,n=10)
+
+ggplot(data=ask8f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=actores)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mas actores y sus ingresos", x="Cantidad de Actores por Pelicula", y="Ingresos")
+
+
+
 #PREGUNTA 4.14
 datos[,'id']
 datos[,'popularity']
