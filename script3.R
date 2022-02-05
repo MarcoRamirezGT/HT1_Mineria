@@ -115,18 +115,22 @@ ggplot(data.frame(x = actorsAmount, y = density)) +
 
 
 #PREGUNTA 4.2
+#Variables a utilizar
 datos[,'id']
 datos[,'revenue']
 datos[,'originalTitle']
 
+#asignación de las variables
 id<-datos[,'id']
 Pelicula<-datos[,'originalTitle']
 ingresos<-datos[, ('revenue')]
 
+#Creacion del dataframe
 q2<-data.frame(Pelicula,ingresos)
 ask2<-q2[order(-q2$ingresos),]
 ask2f<-head(ask2,n=10)
 
+#Creacion de un diagrama de barras para tener una representacion visual y analizar mejor los datos
 ggplot(data=ask2f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=Pelicula)) +
   geom_bar(stat="identity")+
   
@@ -135,19 +139,51 @@ ggplot(data=ask2f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=Pelicula)
 
 
 
+#PREGUNTA 4.8
+#Variables a utilizar
+datos[,'id']
+datos[,'revenue']
+datos[,'originalTitle']
+datos[,'actorsAmount']
+
+#Asignacion de las variables
+id<-datos[,'id']
+Pelicula<-datos[,'originalTitle']
+ingresos<-datos[, 'revenue']
+actores<-datos[, ('actorsAmount')]
+
+#Creacion del dataframe para realizar analisis de tres variables
+q8<-data.frame(ingresos,actores,Pelicula)
+ask8<-q8[order(-q8$ingresos),]
+ask8f<-head(ask8,n=10)
+
+#Representacion grafica mediante un diagrama de barras para comparar los ingresos
+#de las peliculas segun la cantidad de actores
+ggplot(data=ask8f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=actores)) +
+  geom_bar(stat="identity")+
+  
+  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
+  labs(title="Top 10 peliculas con mas actores y sus ingresos", x="Cantidad de Actores por Pelicula", y="Ingresos")
+
+
+
 #PREGUNTA 4.14
+#Variables a utilizar
 datos[,'id']
 datos[,'popularity']
 datos[,'originalTitle']
 
+#Asignacion de variables
 id<-datos[,'id']
 Pelicula<-datos[,'originalTitle']
 popularidad<-datos[, ('popularity')]
 
+#Creacion del dataframe para comparar dos variables
 q2<-data.frame(Pelicula,popularidad)
 ask2<-q2[order(-q2$popularidad),]
 ask2f<-head(ask2,n=10)
 
+#Representacion grafica para el analisis del top 10 de peliculas mejores calificadas
 ggplot(data=ask2f, aes(x=reorder(Pelicula,-popularidad) , y=popularidad,fill=Pelicula)) +
   geom_bar(stat="identity")+
   
