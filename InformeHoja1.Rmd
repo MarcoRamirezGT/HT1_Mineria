@@ -523,7 +523,7 @@ Para la elaboracion de esta grafica fue necesario promediar el ingreso de las pe
 
 
 
-### 4.13.  ¿En qué meses se han visto los lanzamientos con mejores ingresos?
+### 4.13.  ¿cuantas películas, en promedio, se han lanzado por mes? 
 ``` {r include=FALSE}
 #Llamamos a llamar las librerias necesarias.
 library(tibbletime)
