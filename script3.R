@@ -168,24 +168,11 @@ ggplot(data=ask8f, aes(x=reorder(Pelicula,-ingresos) , y=ingresos,fill=actores))
 
 
 #PREGUNTA 4.14
-#Variables a utilizar
-datos[,'id']
-datos[,'popularity']
-datos[,'originalTitle']
+#Lectura y guardado de los datos
+datos<-read.csv('movies.csv')
 
-#Asignacion de variables
-id<-datos[,'id']
-Pelicula<-datos[,'originalTitle']
-popularidad<-datos[, ('popularity')]
-
-#Creacion del dataframe para comparar dos variables
-q2<-data.frame(Pelicula,popularidad)
-ask2<-q2[order(-q2$popularidad),]
-ask2f<-head(ask2,n=10)
-
-#Representacion grafica para el analisis del top 10 de peliculas mejores calificadas
-ggplot(data=ask2f, aes(x=reorder(Pelicula,-popularidad) , y=popularidad,fill=Pelicula)) +
-  geom_bar(stat="identity")+
-  
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
-  labs(title="Top 10 peliculas con mayor indice de popularidad", x="Peliculas", y="Popularidad")
+#Creacion de un diagrama de dispersión para relacionar las variables voteAvg y revenue
+#y asi correlacionar las calificaciones de las peliculas con su exito comercial
+plot(x = datos$voteAvg, y = datos$revenue,
+     main = "Calificaciones - Exito Comercial",
+     xlab = "Promedio de Votos", ylab = "Ingresos")
