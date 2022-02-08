@@ -176,3 +176,5 @@ datos<-read.csv('movies.csv')
 plot(x = datos$voteAvg, y = datos$revenue,
      main = "Calificaciones - Exito Comercial",
      xlab = "Promedio de Votos", ylab = "Ingresos")
+
+ggplot(datos, aes(voteAvg, revenue)) + geom_point()

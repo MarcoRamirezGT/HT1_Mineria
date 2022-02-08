@@ -32,7 +32,7 @@ summary(datos)
 ```
 
 ### 2. Diga el tipo de cada una de las variables (cualitativa ordinal o nominal, cuantitativa continua, cuantitativa discreta)
-![Caption for the picture.](/Users/MAQUITO/Desktop/UVG/UVG S7/Mineria de datos/HDT1/HDT1_F/HT1_Mineria/Ejercicio2.png)
+![Caption for the picture.](C:\Users\xavih\OneDrive\Documentos\GitHub\HT1_Mineria/Ejercicio2.png)
 
 ### 3. Investigue si las variables cuantitativas siguen una distribución normal y haga una tabla de frecuencias de las variables cualitativas. Explique todos los resultados.  
 
@@ -160,7 +160,7 @@ d
 e
 #Distribucion para la variable GENRESAMOUNT
 f
-#Distribucion para la variable PRODUCCIONAMOUNT
+#Distribucion para la variable PRODUCTIONAMOUNT
 g
 #Distribucion para la variable PRODUCTION_COUNTRY_AMOUNT
 h
@@ -777,35 +777,24 @@ Como se puede ver en la grafica, son 3 los meses que representan mejor ingresos,
 
 El mes que se encuentra con mayor lanzamiento de peliculas es **septiembre**, en segundo lugar **octubre** y seguido por **diciembre**
 
-###  4.14 ¿Cómo se correlacionan las calificaciones con el éxito comercial? 
+###  4.14. ¿Cómo se correlacionan las calificaciones con el éxito comercial? 
 ```{r include=FALSE}
 
-datos[,'id']
-datos[,'popularity']
-datos[,'originalTitle']
+library(tibbletime)
+library(dplyr)
+library(tidyverse)
 
-#Asignacion de variables
-id<-datos[,'id']
-Pelicula<-datos[,'originalTitle']
-popularidad<-datos[, ('popularity')]
+#Lectura y guardado de los datos
+datos<-read.csv('movies.csv')
 
-#Creacion del dataframe para comparar dos variables
-q2<-data.frame(Pelicula,popularidad)
-ask2<-q2[order(-q2$popularidad),]
-ask2f<-head(ask2,n=10)
+#Creacion de un diagrama de dispersión para relacionar las variables voteAvg y revenue
+#y asi correlacionar las calificaciones de las peliculas con su exito comercial
+pregunta4.14<-ggplot(datos, aes(voteAvg, revenue)) + geom_point()
 
-#Representacion grafica para el analisis del top 10 de peliculas mejores calificadas
-pregunta4.14<-ggplot(data=ask2f, aes(x=reorder(Pelicula,-popularidad) , y=popularidad,fill=Pelicula)) +
-  geom_bar(stat="identity")+
-  
-  theme(axis.text.x = element_text(angle = 60, vjust = 1, hjust=1))+
-  labs(title="Top 10 peliculas con mayor indice de popularidad", x="Peliculas", y="Popularidad")
 
 ```
-
 ```{r}
 pregunta4.14
-
 ```
 ###  4.15. ¿A qué género principal pertenecen las películas más largas? 
 
