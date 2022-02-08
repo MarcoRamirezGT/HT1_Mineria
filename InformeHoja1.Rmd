@@ -32,7 +32,7 @@ summary(datos)
 ```
 
 ### 2. Diga el tipo de cada una de las variables (cualitativa ordinal o nominal, cuantitativa continua, cuantitativa discreta)
-![Caption for the picture.](C:\Users\xavih\OneDrive\Documentos\GitHub\HT1_Mineria/Ejercicio2.png)
+![Caption for the picture.](/Users\MAQUITO\Desktop\UVG\UVG S7\Mineria de datos\HDT1\HDT1_F\HT1_Mineria\Ejercicio2.png)
 
 ### 3. Investigue si las variables cuantitativas siguen una distribución normal y haga una tabla de frecuencias de las variables cualitativas. Explique todos los resultados.  
 
